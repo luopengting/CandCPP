@@ -48,16 +48,16 @@ int main(){
     BasePtr b = manager.GetInfo(a_key);
     b->PrintValue();                   // 1
 
-    A *bb = reinterpret_cast<A *> (&b);
-    bb->PrintValue();                  // not 1, like 1431768768
+    APtr bb = std::dynamic_pointer_cast<A> (b);
+    bb->PrintValue();                  // 1
     bb->Add(2);
-    bb->PrintValue();
+    bb->PrintValue();                  // 3
 
     b->Add();
-    b->PrintValue();                   // 2
+    b->PrintValue();                   // 4
 
     BasePtr c = manager.GetInfo(a_key);
-    c->PrintValue();                   // 2
+    c->PrintValue();                   // 4
 
     return 0;
 }
