@@ -34,7 +34,7 @@ class Manager {
   public:
     std::unordered_map<std::string, BasePtr> v;
     void AddInfo(const std::string &key, const BasePtr &info) { v[key] = info; }
-    BasePtr &GetInfo(const std::string &key) { return v[key]; }
+    BasePtr GetInfo(const std::string &key) { return v[key]; }
 };
 
 int main(){
@@ -48,6 +48,7 @@ int main(){
     BasePtr b = manager.GetInfo(a_key);
     b->PrintValue();                   // 1
 
+    // A * bb = reinterpret_cast<A *> (&*b);
     APtr bb = std::dynamic_pointer_cast<A> (b);
     bb->PrintValue();                  // 1
     bb->Add(2);
