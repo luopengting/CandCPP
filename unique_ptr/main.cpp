@@ -1,5 +1,22 @@
 #include <iostream>
 #include <memory>
+#include <vector>
+
+class A {
+public:
+  A(int val) { val_ = val; }
+  ~A() {}
+private:
+  int val_;
+};
+
+class B {
+public:
+  B() {}
+  ~B() {}
+private:
+  std::vector<std::unique_ptr<A>> vec_;
+};
 
 int main() {
     {
@@ -10,4 +27,13 @@ int main() {
         uptr2.release(); //释放所有权
     }
     //超過uptr的作用域，內存釋放
+
+    std::vector<std::unique_ptr<A>> vec;  // OK
+    vec.push_back(std::unique_ptr<A>(new A(0)));  // OK
+
+    // B b = B(); // 报错，因为赋值进行了拷贝构造
+    B b;
+    auto c = std::make_shared<B>(); // OK
+
+    return 0;
 }
